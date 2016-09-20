@@ -9,31 +9,31 @@ class Display
 
   def render
     system("clear")
-    puts "  #{('a'..'h').to_a.join(' ')}"
+    puts "   #{(0..7).to_a.join('  ')}"
     @cursor.board.rows.each_with_index do |row, idx|
       print "#{idx+1} "
       row.each_with_index do |col, idx2|
         if [idx,idx2] == @cursor.cursor_pos
-          print '  '.colorize(:background => :red)
+          print '   '.colorize(:background => :red)
         else
           if idx.even?
             if idx2.even?
-              print '  '.colorize(:background => :white)
+              print " #{@cursor.board.rows[idx][idx2].symbol} ".colorize(:background => :light_blue)
             else
-              print '  '.colorize(:background => :black)
+              print " #{@cursor.board.rows[idx][idx2].symbol} ".colorize(:background => :light_black)
             end
           else
             if idx2.odd?
-              print '  '.colorize(:background => :white)
+              print " #{@cursor.board.rows[idx][idx2].symbol} ".colorize(:background => :light_blue)
             else
-              print '  '.colorize(:background => :black)
+              print " #{@cursor.board.rows[idx][idx2].symbol} ".colorize(:background => :light_black)
             end
           end
         end
       end
       puts " #{idx+1}"
     end
-    puts "  #{('a'..'h').to_a.join(' ')}"
+    puts "   #{('a'..'h').to_a.join('  ')}"
   end
 
   def display_cursor
