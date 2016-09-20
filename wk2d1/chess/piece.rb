@@ -1,5 +1,5 @@
 class Piece
-  attr_reader :piece
+  attr_reader :piece, :pos
   def initialize(color, letter, pos, board)
     @color = color.to_sym
     @letter = letter
@@ -12,16 +12,4 @@ class Piece
   end
 
 
-end
-
-
-
-
-
-class Pawn < Piece
-  def initialize (color, letter, pos, board)
-    super
-  end
-  def moves
-  end
 end
