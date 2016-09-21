@@ -7,9 +7,10 @@ class Board
 attr_reader :rows
   def initialize(grid = Board.make_starting_grid)
     @rows = grid
+
     @rows.each_with_index do |row, idx1|
       row.each_with_index do |_, idx2|
-        next if idx1.between?(2,5)
+        next if @rows[idx1][idx2].is_a?(NullPiece)
         @rows[idx1][idx2].board = @rows
       end
     end
@@ -25,8 +26,7 @@ attr_reader :rows
     @rows[x][y] = piece
   end
 
-  def dup()
-  end
+
 
   def move(start, end_pos)
     if self[*start].is_a?(Piece)
@@ -39,6 +39,10 @@ attr_reader :rows
           #raise "Illegal move by piece" if #piece can't move
         end
     end
+  end
+
+  def move!(start, stop)
+
   end
 
   def in_bounds?(pos)
@@ -79,6 +83,27 @@ attr_reader :rows
     end
 
     return false
+  end
+
+
+
+  def dup(cboard)
+    copy = []
+    # debugger
+    cboard.each do |rows|
+      copy1 = []
+      # debugger
+      rows.length.times do |i|
+        if rows[i].is_a?(Piece)
+          copy1 << rows[i].dup
+        else
+          copy1 << rows[i]
+        end
+      end
+      copy << copy1
+    end
+    copy.each{|row| row.each {|piece| piece.board = copy if piece.is_a?(Piece)}}
+    copy
   end
 # def initialize(color, pos, board)
   protected
@@ -139,5 +164,11 @@ attr_reader :rows
 
 end
 a = Board.new
-puts a.rows[0][0].color
-puts a.rows[0][7].color
+a.rows
+b = a.dup(a.rows)
+b[0][1] = "k"
+puts b[0][1]
+puts a.rows[0][1]
+
+p b[0][2].board = 'hi'
+puts a.rows[0][2].board

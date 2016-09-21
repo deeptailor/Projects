@@ -43,5 +43,3 @@ class Display
     end
   end
 end
-d = Display.new("test")
-d.display_cursor
