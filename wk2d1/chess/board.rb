@@ -34,15 +34,20 @@ attr_reader :rows
         if self[*end_pos].is_a?(NullPiece)
           self[*end_pos] = piece
           self[*start] = NullPiece.instance
+          piece.pos = stop
         else
           raise "Space occupied by piece" if self[*end_pos].is_a?(Piece)
+
           #raise "Illegal move by piece" if #piece can't move
         end
     end
   end
 
   def move!(start, stop)
-
+      piece = self[*start]
+      piece.pos = stop
+      self[*stop] = piece
+      self[*start] = NullPiece.instance
   end
 
   def in_bounds?(pos)

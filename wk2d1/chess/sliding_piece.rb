@@ -12,7 +12,9 @@ class SlidingPiece < Piece
   end
 
   def moves(pos, dir)
-    Slidable.moves(pos, dir)
+    Slidable.moves(pos, dir).select do |e|
+      !(@board[*e].is_a?(Piece) && @board[*e].color == self.color)
+    end
   end
 
 end
