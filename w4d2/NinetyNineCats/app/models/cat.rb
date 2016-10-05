@@ -27,6 +27,13 @@ class Cat < ActiveRecord::Base
       message: "%{value} is not m or f" }
   validates :description, presence:true
 
+
+  has_many :rental_requests,
+  dependent: :destroy,
+  primary_key: :id,
+  foreign_key: :cat_id,
+  class_name: :Cat
+
   # def validate_colors
   #
   # end
